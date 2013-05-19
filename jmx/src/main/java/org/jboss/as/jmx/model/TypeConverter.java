@@ -1,24 +1,24 @@
 /*
-* JBoss, Home of Professional Open Source.
-* Copyright 2011, Red Hat Middleware LLC, and individual contributors
-* as indicated by the @author tags. See the copyright.txt file in the
-* distribution for a full listing of individual contributors.
-*
-* This is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as
-* published by the Free Software Foundation; either version 2.1 of
-* the License, or (at your option) any later version.
-*
-* This software is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this software; if not, write to the Free
-* Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-* 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-*/
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2011, Red Hat Middleware LLC, and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.as.jmx.model;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.DESCRIPTION;
@@ -55,13 +55,15 @@ import org.jboss.dmr.Property;
 public abstract class TypeConverter {
 
     public abstract OpenType<?> getOpenType();
+
     public abstract Object fromModelNode(final ModelNode node);
+
     public abstract ModelNode toModelNode(final Object o);
+
     public abstract Object[] toArray(final List<Object> list);
 
     static OpenType<?> convertToMBeanType(final ModelNode description) {
-        return getConverter(
-                description.hasDefined(TYPE) ? description.get(TYPE) : null,
+        return getConverter(description.hasDefined(TYPE) ? description.get(TYPE) : null,
                 description.hasDefined(VALUE_TYPE) ? description.get(VALUE_TYPE) : null).getOpenType();
     }
 
@@ -71,7 +73,8 @@ public abstract class TypeConverter {
             return node;
         }
         final ModelNode typeNode = description.hasDefined(TYPE) ? description.get(TYPE) : null;
-        return getConverter(typeNode, description.hasDefined(VALUE_TYPE) ? description.get(VALUE_TYPE) : null).toModelNode(value);
+        return getConverter(typeNode, description.hasDefined(VALUE_TYPE) ? description.get(VALUE_TYPE) : null).toModelNode(
+                value);
     }
 
     static Object fromModelNode(final ModelNode description, final ModelNode value) {
@@ -100,36 +103,36 @@ public abstract class TypeConverter {
             return new ComplexTypeConverter(typeNode);
         }
         switch (modelType) {
-        case BIG_DECIMAL:
-            return BigDecimalTypeConverter.INSTANCE;
-        case BIG_INTEGER:
-            return BigIntegerTypeConverter.INSTANCE;
-        case BOOLEAN:
-            return BooleanTypeConverter.INSTANCE;
-        case BYTES:
-            return BytesTypeConverter.INSTANCE;
-        case DOUBLE:
-            return DoubleTypeConverter.INSTANCE;
-        case EXPRESSION:
-            return ExpressionTypeConverter.INSTANCE;
-        case STRING:
-            return StringTypeConverter.INSTANCE;
-        case PROPERTY:
-            return PropertyTypeConverter.INSTANCE;
-        case INT:
-            return IntegerTypeConverter.INSTANCE;
-        case LONG:
-            return LongTypeConverter.INSTANCE;
-        case TYPE:
-            return ModelTypeTypeConverter.INSTANCE;
-        case OBJECT:
-            return new ObjectTypeConverter(valueTypeNode);
-        case LIST:
-            return new ListTypeConverter(valueTypeNode);
-        case UNDEFINED:
-            return UndefinedTypeConverter.INSTANCE;
-        default:
-            throw MESSAGES.unknownType(modelType);
+            case BIG_DECIMAL:
+                return BigDecimalTypeConverter.INSTANCE;
+            case BIG_INTEGER:
+                return BigIntegerTypeConverter.INSTANCE;
+            case BOOLEAN:
+                return BooleanTypeConverter.INSTANCE;
+            case BYTES:
+                return BytesTypeConverter.INSTANCE;
+            case DOUBLE:
+                return DoubleTypeConverter.INSTANCE;
+            case EXPRESSION:
+                return ExpressionTypeConverter.INSTANCE;
+            case STRING:
+                return StringTypeConverter.INSTANCE;
+            case PROPERTY:
+                return PropertyTypeConverter.INSTANCE;
+            case INT:
+                return IntegerTypeConverter.INSTANCE;
+            case LONG:
+                return LongTypeConverter.INSTANCE;
+            case TYPE:
+                return ModelTypeTypeConverter.INSTANCE;
+            case OBJECT:
+                return new ObjectTypeConverter(valueTypeNode);
+            case LIST:
+                return new ListTypeConverter(valueTypeNode);
+            case UNDEFINED:
+                return UndefinedTypeConverter.INSTANCE;
+            default:
+                throw MESSAGES.unknownType(modelType);
         }
     }
 
@@ -161,7 +164,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((BigDecimal)o);
+            return new ModelNode().set((BigDecimal) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -190,7 +193,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((BigInteger)o);
+            return new ModelNode().set((BigInteger) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -219,7 +222,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((Boolean)o);
+            return new ModelNode().set((Boolean) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -249,7 +252,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((byte[])o);
+            return new ModelNode().set((byte[]) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -278,14 +281,13 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((Double)o);
+            return new ModelNode().set((Double) o);
         }
 
         public Object[] toArray(final List<Object> list) {
             return list.toArray(new Double[list.size()]);
         }
     }
-
 
     private static class IntegerTypeConverter extends TypeConverter {
         static final IntegerTypeConverter INSTANCE = new IntegerTypeConverter();
@@ -308,7 +310,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((Integer)o);
+            return new ModelNode().set((Integer) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -337,7 +339,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((String)o);
+            return new ModelNode().set((String) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -366,7 +368,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return ModelNode.fromJSONString((String)o);
+            return ModelNode.fromJSONString((String) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -376,12 +378,12 @@ public abstract class TypeConverter {
 
     private static class ExpressionTypeConverter extends StringTypeConverter {
         static final ExpressionTypeConverter INSTANCE = new ExpressionTypeConverter();
-        //TODO this is probably fine?
+        // TODO this is probably fine?
     }
 
     private static class PropertyTypeConverter extends StringTypeConverter {
         static final ExpressionTypeConverter INSTANCE = new ExpressionTypeConverter();
-        //TODO Decide how these should look
+        // TODO Decide how these should look
     }
 
     private static class LongTypeConverter extends TypeConverter {
@@ -405,7 +407,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set((Long)o);
+            return new ModelNode().set((Long) o);
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -434,7 +436,7 @@ public abstract class TypeConverter {
             if (o == null) {
                 return new ModelNode();
             }
-            return new ModelNode().set(ModelType.valueOf((String)o));
+            return new ModelNode().set(ModelType.valueOf((String) o));
         }
 
         public Object[] toArray(final List<Object> list) {
@@ -455,23 +457,19 @@ public abstract class TypeConverter {
         }
 
         @Override
-        public OpenType<?>  getOpenType() {
+        public OpenType<?> getOpenType() {
             if (openType != null) {
                 return openType;
             }
             openType = getConverter(valueTypeNode, null).getOpenType();
             if (openType instanceof CompositeType || !valueTypeNode.isDefined()) {
-                //For complex value types just return the composite type
+                // For complex value types just return the composite type
                 return openType;
             }
             try {
-                CompositeType rowType = new CompositeType(
-                        "entry",
-                        "An entry",
-                        new String[] {"key", "value"},
-                        new String[] {"The key", "The value"},
-                        new OpenType[] {SimpleType.STRING, openType});
-                openType = new TabularType("A map", "The map is indexed by 'key'", rowType, new String[] {"key"});
+                CompositeType rowType = new CompositeType("entry", "An entry", new String[] { "key", "value" }, new String[] {
+                        "The key", "The value" }, new OpenType[] { SimpleType.STRING, openType });
+                openType = new TabularType("A map", "The map is indexed by 'key'", rowType, new String[] { "key" });
                 return openType;
             } catch (OpenDataException e1) {
                 throw new RuntimeException(e1);
@@ -492,7 +490,7 @@ public abstract class TypeConverter {
         }
 
         Object fromSimpleModelNode(final ModelNode node) {
-            final TabularType tabularType = (TabularType)getOpenType();
+            final TabularType tabularType = (TabularType) getOpenType();
             final TabularDataSupport tabularData = new TabularDataSupport(tabularType);
             final Map<String, ModelNode> values = new HashMap<String, ModelNode>();
             final List<Property> properties = node.isDefined() ? node.asPropertyList() : null;
@@ -522,13 +520,13 @@ public abstract class TypeConverter {
                 return new ModelNode();
             }
             if (valueType == null) {
-                //complex
+                // complex
                 return TypeConverter.getConverter(valueTypeNode, null).toModelNode(o);
             } else {
-                //map
+                // map
                 final ModelNode node = new ModelNode();
                 final TypeConverter converter = TypeConverter.getConverter(valueTypeNode, null);
-                for (Map.Entry<String, Object> entry : ((Map<String, Object>)o).entrySet()) {
+                for (Map.Entry<String, Object> entry : ((Map<String, Object>) o).entrySet()) {
                     entry = convertTabularTypeEntryToMapEntry(entry);
                     node.get(entry.getKey()).set(converter.toModelNode(entry.getValue()));
                 }
@@ -544,24 +542,24 @@ public abstract class TypeConverter {
             return list.toArray(new Object[list.size()]);
         }
 
-        //TODO this may go depending on if we want to force tabular types only
+        // TODO this may go depending on if we want to force tabular types only
         private Map.Entry<String, Object> convertTabularTypeEntryToMapEntry(final Map.Entry<?, Object> entry) {
             if (entry.getKey() instanceof List) {
-                //It comes from a TabularType
+                // It comes from a TabularType
                 return new Map.Entry<String, Object>() {
 
                     @Override
                     public String getKey() {
-                        List<?> keyList = (List<?>)entry.getKey();
+                        List<?> keyList = (List<?>) entry.getKey();
                         if (keyList.size() != 1) {
                             throw MESSAGES.invalidKey(keyList, entry);
                         }
-                        return (String)keyList.get(0);
+                        return (String) keyList.get(0);
                     }
 
                     @Override
                     public Object getValue() {
-                        return ((CompositeDataSupport)entry.getValue()).get("value");
+                        return ((CompositeDataSupport) entry.getValue()).get("value");
                     }
 
                     @Override
@@ -575,7 +573,7 @@ public abstract class TypeConverter {
 
                     @Override
                     public String getKey() {
-                        return (String)entry.getKey();
+                        return (String) entry.getKey();
                     }
 
                     @Override
@@ -629,7 +627,7 @@ public abstract class TypeConverter {
             }
             ModelNode node = new ModelNode();
             final TypeConverter converter = getConverter(valueTypeNode, null);
-            for (Object value : (Object[])o) {
+            for (Object value : (Object[]) o) {
                 node.add(converter.toModelNode(value));
             }
             return node;
@@ -654,7 +652,7 @@ public abstract class TypeConverter {
             List<String> itemDescriptions = new ArrayList<String>();
             List<OpenType<?>> itemTypes = new ArrayList<OpenType<?>>();
 
-            //Some of the common operation descriptions use value-types like "The type will be that of the attribute found".
+            // Some of the common operation descriptions use value-types like "The type will be that of the attribute found".
             if (!typeNode.isDefined() || typeNode.getType() == ModelType.STRING) {
                 return SimpleType.STRING;
             }
@@ -665,8 +663,7 @@ public abstract class TypeConverter {
                 String description = null;
                 if (!current.hasDefined(DESCRIPTION)) {
                     description = "-";
-                }
-                else {
+                } else {
                     description = current.get(DESCRIPTION).asString().trim();
                     if (description.length() == 0) {
                         description = "-";
@@ -677,7 +674,9 @@ public abstract class TypeConverter {
                 itemTypes.add(getConverter(current.get(TYPE), current.get(VALUE_TYPE)).getOpenType());
             }
             try {
-                return new CompositeType("Complex type", "A complex type", itemNames.toArray(new String[itemNames.size()]), itemDescriptions.toArray(new String[itemDescriptions.size()]), itemTypes.toArray(new OpenType[itemTypes.size()]));
+                return new CompositeType("Complex type", "A complex type", itemNames.toArray(new String[itemNames.size()]),
+                        itemDescriptions.toArray(new String[itemDescriptions.size()]), itemTypes.toArray(new OpenType[itemTypes
+                                .size()]));
             } catch (OpenDataException e) {
                 throw new RuntimeException(e);
             }
@@ -693,6 +692,7 @@ public abstract class TypeConverter {
             }
             return description;
         }
+
         @Override
         public Object fromModelNode(ModelNode node) {
             if (node == null || !node.isDefined()) {
@@ -701,12 +701,21 @@ public abstract class TypeConverter {
 
             final OpenType<?> openType = getOpenType();
             if (openType instanceof CompositeType) {
-                final CompositeType compositeType = (CompositeType)openType;
-                //Create a composite
+                final CompositeType compositeType = (CompositeType) openType;
+                // Create a composite
                 final Map<String, Object> items = new HashMap<String, Object>();
                 for (String attrName : compositeType.keySet()) {
                     TypeConverter converter = getConverter(typeNode.get(attrName, TYPE), typeNode.get(attrName, VALUE_TYPE));
-                    items.put(attrName, converter.fromModelNode(node.get(attrName)));
+                    if (node.getType() == ModelType.PROPERTY) {
+                     // Ugly fix for InvalidArgumentException otherwise thrown with properties here
+                        if ("name".equals(attrName)) {
+                            items.put(attrName, node.asProperty().getName());
+                        } else if ("value".equals(attrName)) {
+                            items.put(attrName, converter.fromModelNode(node.asProperty().getValue()));
+                        }
+                    } else {
+                        items.put(attrName, converter.fromModelNode(node.get(attrName)));
+                    }
                 }
 
                 try {
@@ -726,9 +735,9 @@ public abstract class TypeConverter {
             }
             if (o instanceof CompositeData) {
                 final ModelNode node = new ModelNode();
-                final CompositeData composite = (CompositeData)o;
+                final CompositeData composite = (CompositeData) o;
                 for (String key : composite.getCompositeType().keySet()) {
-                    if (!typeNode.hasDefined(key)){
+                    if (!typeNode.hasDefined(key)) {
                         throw MESSAGES.unknownValue(key);
                     }
                     final ModelNode type = typeNode.get(key).get(TYPE);
@@ -738,7 +747,7 @@ public abstract class TypeConverter {
                 }
                 return node;
             } else {
-                return ModelNode.fromJSONString((String)o);
+                return ModelNode.fromJSONString((String) o);
             }
         }
 
